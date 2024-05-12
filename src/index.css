@@ -1,3 +1,22 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.layout-container {
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+  height: calc(var(--vh, 1vh) * 100);
+}
+
+.main-section::-webkit-scrollbar {
+  width: 12px;
+}
+
+.main-section::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.main-section::-webkit-scrollbar-thumb {
+  background-color: gray;
+}
