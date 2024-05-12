@@ -8,10 +8,12 @@ interface LayoutProps {
 
 const Layout: FC<LayoutProps> = ({ children }) => {
   return (
-    <div className="w-[640px] bg-gray-700 mx-auto">
-      <Header />
-      <main className="overflow-x-hidden overflow-y-scroll">{children}</main>
-      <Footer />
+    <div className="flex justify-center bg-gray-700">
+      <div className="layout-container min-w-full bg-white md:min-w-[480px] md:max-w-[480px]">
+        <Header />
+        <main className="main-section overflow-auto w-full h-full p-3">{children}</main>
+        <Footer />
+      </div>
     </div>
   );
 };
