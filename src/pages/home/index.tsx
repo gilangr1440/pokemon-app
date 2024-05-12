@@ -4,10 +4,12 @@ import { getPokemon } from "../../utils/apis/api";
 import { PokemonType } from "../../utils/apis/type";
 import { GrCaretNext, GrCaretPrevious } from "react-icons/gr";
 import Card from "../../components/Card";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
   const [pokemonDatas, setPokemonDatas] = useState<PokemonType[]>([]);
   const [offset, setOffset] = useState<number>(0);
+  const navigate = useNavigate();
 
   useEffect(() => {
     getPokemonData(offset);
@@ -29,13 +31,16 @@ const Home = () => {
   const handleNextPage = () => {
     setOffset((prev) => prev + 20);
   };
+  const handelDetail = (name: string) => {
+    navigate(`/detail/${name}`);
+  };
   return (
     <Layout>
       <div className="grid grid-cols-2 gap-3">
         {pokemonDatas &&
           pokemonDatas.map((data: PokemonType, index: number) => {
             const pokemonIndex = data.url.split("/")[data.url.split("/").length - 2];
-            return <Card key={index} name={data.name} index={pokemonIndex} />;
+            return <Card key={index} onClick={() => handelDetail(data.name)} name={data.name} index={pokemonIndex} />;
           })}
       </div>
       <div className="flex justify-around my-5">
