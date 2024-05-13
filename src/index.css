@@ -22,5 +22,14 @@
 }
 
 .moves-pokemon::-webkit-scrollbar {
-  display: none;
+  width: 8px;
+}
+
+.moves-pokemon::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.moves-pokemon::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: gray;
 }

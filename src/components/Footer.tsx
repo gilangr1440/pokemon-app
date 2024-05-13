@@ -11,10 +11,12 @@ const Footer = () => {
           <span>Home</span>
         </div>
       </Link>
-      <div className="text-white flex flex-col justify-center items-center">
-        <MdCatchingPokemon className="text-4xl" />
-        <span>My Pokemon</span>
-      </div>
+      <Link to={"/pokedex"}>
+        <div className="text-white flex flex-col justify-center items-center">
+          <MdCatchingPokemon className="text-4xl" />
+          <span>My Pokemon</span>
+        </div>
+      </Link>
     </footer>
   );
 };
