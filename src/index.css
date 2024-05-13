@@ -20,3 +20,7 @@
 .main-section::-webkit-scrollbar-thumb {
   background-color: gray;
 }
+
+.moves-pokemon::-webkit-scrollbar {
+  display: none;
+}

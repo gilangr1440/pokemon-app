@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Layout from "../../components/Layout";
 import { getPokemonDetail } from "../../utils/apis/api";
 import { useEffect, useState } from "react";
@@ -16,16 +16,17 @@ const Detail = () => {
     try {
       const result = await getPokemonDetail(name);
       setDetailDatas(result);
-      //   console.log(result);
     } catch (error) {
       console.log(error);
     }
   };
   return (
     <Layout>
-      <div className="grid grid-cols-2 gap-3 h-60">
+      <div className="grid grid-cols-2 gap-3 h-60 p-3">
         <div className="flex flex-col items-center justify-between border border-black shadow-xl p-4 rounded-md">
-          <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${detailDatas.id}.svg`} alt={detailDatas.name} width={170} height={200} className="h-auto w-auto" />
+          <div className="h-40">
+            <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${detailDatas.id}.svg`} alt={detailDatas.name} width={170} height={200} className="h-full w-full object-contain" />
+          </div>
           <div className="flex flex-wrap gap-2">
             {detailDatas.types &&
               detailDatas.types.map((data: any, index: number) => (
@@ -44,7 +45,7 @@ const Detail = () => {
           <hr />
         </div>
       </div>
-      <div className="grid grid-cols-1 mt-10">
+      <div className="grid grid-cols-1 mt-2 p-3">
         <div className="border border-black shadow-xl rounded-md p-5">
           {detailDatas.stats &&
             detailDatas.stats.map((data: any, index: number) => (
@@ -55,13 +56,13 @@ const Detail = () => {
                 </div>
 
                 <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
-                  <div className="bg-blue-600 h-2.5 rounded-full" style={{ width: `${data.base_stat}%` }}></div>
+                  <div className="bg-blue-600 h-2.5 rounded-full" style={{ width: `${Math.min(100, data.base_stat)}%` }}></div>
                 </div>
               </div>
             ))}
         </div>
       </div>
-      <div className="grid grid-cols-2 gap-3 my-5 h-40">
+      <div className="grid grid-cols-2 gap-3 h-40 p-3">
         <div className="flex flex-col border border-black shadow-xl rounded-md p-5">
           {detailDatas.abilities &&
             detailDatas.abilities.map((data: any, index: number) => (
@@ -70,18 +71,27 @@ const Detail = () => {
               </span>
             ))}
         </div>
-        <div className="flex flex-col border border-black shadow-xl rounded-md p-5">
+        <div className="flex flex-col border moves-pokemon border-black shadow-xl rounded-md p-5 overflow-y-scroll">
           {detailDatas.moves &&
             detailDatas.moves.map((data: any, index: number) => {
               if (index <= 5) {
                 return (
-                  <span key={index} className="text-sm">
-                    {data.move.name}
-                  </span>
+                  <>
+                    <span key={index} className="text-sm">
+                      {data.move.name}
+                    </span>
+                    <hr className="mb-2" />
+                  </>
                 );
               }
             })}
         </div>
+      </div>
+
+      <div className="flex justify-center my-5">
+        <Link to={`/battle/${detailDatas.name}`} className="p-2 border border-black rounded-full shadow-xl text-xs hover:bg-black hover:text-white">
+          Catch!
+        </Link>
       </div>
     </Layout>
   );
