@@ -47,7 +47,7 @@ const Home = () => {
         {pokemonDatas &&
           pokemonDatas.map((data: PokemonType, index: number) => {
             const pokemonIndex = data.url.split("/")[data.url.split("/").length - 2];
-            return <Card key={index} onClick={() => handelDetail(data.name)} name={data.name} index={pokemonIndex} />;
+            return <Card key={index} page="home" onClick={() => handelDetail(data.name)} name={data.name} index={pokemonIndex} />;
           })}
       </div>
       <div className="flex justify-around my-5">
