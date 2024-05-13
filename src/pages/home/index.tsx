@@ -51,10 +51,10 @@ const Home = () => {
           })}
       </div>
       <div className="flex justify-around my-5">
-        <button onClick={() => handlePrevPage()} className={`text-2xl ${offset == "0" && "opacity-0 cursor-auto"}`}>
+        <button onClick={() => handlePrevPage()} className={`text-2xl dark:text-white ${offset == "0" && "opacity-0 cursor-auto"}`}>
           <GrCaretPrevious />
         </button>
-        <button onClick={() => handleNextPage()} className="text-2xl">
+        <button onClick={() => handleNextPage()} className="text-2xl dark:text-white">
           <GrCaretNext />
         </button>
       </div>

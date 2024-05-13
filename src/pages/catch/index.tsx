@@ -1,5 +1,6 @@
 import Layout from "../../components/Layout";
 import background from "../../assets/background.jpg";
+import backgroundDark from "../../assets/background-dark.jpg";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { ResponsePayloadDetail } from "../../utils/types/api";
@@ -14,7 +15,7 @@ const Catch = () => {
   const [showModal, setShowModal] = useState<boolean>(false);
   const [alias, setAlias] = useState<string>("");
   const navigate = useNavigate();
-  const [addPokemon] = usePokemonStore(useShallow((state) => [state.addPokemon]));
+  const [pokemon, addPokemon] = usePokemonStore(useShallow((state) => [state.pokemon, state.addPokemon]));
 
   useEffect(() => {
     getDetailData(name);
@@ -35,23 +36,39 @@ const Catch = () => {
 
   const catchHandling = () => {
     const randomNum = Math.random();
+    let duplicate = false;
+    pokemon.map((data: any) => {
+      if (data.id == detailDatas.id) {
+        duplicate = true;
+      }
+    });
 
-    if (randomNum <= 0.5) {
-      Swal.fire({
-        position: "center",
-        icon: "success",
-        title: "Pokemon Catched",
-        showConfirmButton: false,
-        timer: 1500,
-      });
-      setTimeout(() => {
-        setShowModal(true);
-      }, 1500);
+    if (!duplicate) {
+      if (randomNum <= 0.5) {
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Catch pokemon success",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        setTimeout(() => {
+          setShowModal(true);
+        }, 1500);
+      } else {
+        Swal.fire({
+          position: "center",
+          icon: "error",
+          title: "Catch pokemon fail",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }
     } else {
       Swal.fire({
         position: "center",
         icon: "error",
-        title: "Pokemon not catched",
+        title: "Pokemon already exist",
         showConfirmButton: false,
         timer: 1500,
       });
@@ -78,7 +95,7 @@ const Catch = () => {
     <>
       <Layout>
         <div className={`w-full h-full relative`}>
-          <img src={background} className="h-full w-full object-cover" />
+          <img src={localStorage.getItem("poketheme") == "dark" ? backgroundDark : background} className="h-full w-full object-cover" />
           <div className="h-24 absolute top-36 left-1/2 -translate-x-1/2">
             <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${detailDatas.id}.svg`} alt={detailDatas.name} width={170} height={200} className="h-full w-full object-contain" />
           </div>
